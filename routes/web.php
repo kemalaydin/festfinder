@@ -12,5 +12,13 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('frontend.index');
 });
+
+Route::get('/login',function(){
+    return view('frontend.user.login');
+})->name('login');
+
+Route::get('/register',function(){
+   return view('frontend.user.register');
+})->name('register');
