@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\Category;
 use App\Model\Event;
+use App\Model\Organizer;
+use App\Model\Place;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
@@ -44,9 +47,10 @@ class EventController extends Controller
      * @param  \App\Model\Event  $event
      * @return \Illuminate\Http\Response
      */
-    public function show(Event $event)
+    public function show($slug)
     {
-        //
+        $Event = Event::where('slug',$slug)->with('prices','place','organizer','category','subcategory')->first();
+        return view('frontend.event.show',compact('Event'));
     }
 
     /**
@@ -81,5 +85,20 @@ class EventController extends Controller
     public function destroy(Event $event)
     {
         //
+    }
+
+    public function category($slug){
+        $Category = Category::where('slug',$slug)->first();
+        return view('frontend.event.filter',compact('Category'));
+    }
+
+    public function organizer($slug){
+        $Organizer = Organizer::where('slug',$slug)->first();
+        return view('frontend.event.organizer',compact('Organizer'));
+    }
+
+    public function place($slug){
+        $Place = Place::where('slug',$slug)->first();
+        return view('frontend.event.place',compact('Place'));
     }
 }

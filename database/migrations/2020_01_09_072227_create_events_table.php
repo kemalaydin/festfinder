@@ -17,8 +17,8 @@ class CreateEventsTable extends Migration
             $table->bigIncrements('id');
             $table->string('title');
             $table->text('description');
-            $table->integer('type');
-            $table->integer('sub_type');
+            $table->integer('category');
+            $table->integer('sub_category');
             $table->string('date');
             $table->integer('organizer');
             $table->integer('place_id');
