@@ -6,7 +6,6 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         @yield('meta')
         <title>@yield('title','Welcome') :: Festreet </title>
-        <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css" rel="stylesheet"/>
         <link rel="stylesheet" href="{{ mix('css/app.css')}}">
         @yield('style')
     </head>
@@ -84,12 +83,7 @@
                 @endif
             </div>
         </div>
-
         <script src="{{ mix('js/app.js')}}"></script>
-
-        <script>
-
-        </script>
         @yield('script')
     </body>
 </html>

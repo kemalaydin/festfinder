@@ -5,26 +5,32 @@
 @section('content')
     <div class="container p-6">
         <div class="flex p-6">
-            <div class="w-full ml-6 mr-6">
+            <div class="w-1/4">
+
+            </div>
+            <div class="w-3/4 ml-6 mr-6">
                 <h3 class="text-3xl font-normal text-black px-2 rounded-t uppercase border-b border-gray-200">{{ $Category->category_name }}</h3>
 
-                <div class="container flex flex-wrap">
+                <div class="container flex flex-wrap mt-5">
                     @foreach($Category->Events as $Event)
-                        <div class="w-full md:w-1/3 p-2">
-                            <div class="w-full shadow-md rounded">
-                                <a class="bg-primary-500 text-white p-2 text-center font-normal text-lg rounded-t block" href="{{ url('event/'.$Event->slug) }}">
-                                    {{ $Event->title }}
-                                </a>
+                        <div class="w-full md:w-full p-2">
+                            <div class="w-full rounded shadow-lg rounded">
+                                <div class="flex">
+                                    <div class="w-1/4">
+                                        <img src="{{ asset('images/1.png') }}" />
+                                    </div>
 
-                                <div class="w-full">
-                                    <img src="{{ asset('images/1.png') }}" />
+                                    <div class="w-3/4 p-2">
+                                        <a class="text-black font-normal text-lg block" href="{{ url('event/'.$Event->slug) }}">
+                                            {{ $Event->title }}
+                                        </a>
+
+                                        <div class="p-2 text-sm text-justify">
+                                            {{ Str::limit($Event->description,250) }}
+                                        </div>
+                                    </div>
                                 </div>
 
-                                <div class="p-2 text-sm text-justify">
-                                    {{ Str::limit($Event->description,250) }}
-                                </div>
-
-                                <hr>
 
                                 <div class="bg-gray-100 shadow-inner p-2 rounded-b flex text-center items-stretch">
                                     <div class="w-1/3 text-xs border-r">

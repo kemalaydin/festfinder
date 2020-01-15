@@ -48,4 +48,14 @@ class User extends Authenticatable
             ]
         ];
     }
+
+    public function scopeOrganizers($query)
+    {
+        return $query->where('type', '=' ,'organizer');
+    }
+
+    public function myOrganizers(){
+        return $this->hasMany('App\Model\Organizer','user_id','id');
+    }
 }
+

@@ -15,7 +15,7 @@
                     <td>#</td>
                     <td>Adı</td>
                     <td>Açıklama</td>
-                    <td class="text-center">Kayıtlı</td>
+                    <td class="text-center">Yetkili Üyelik</td>
                     <td width="180px" class="text-center">İşlemler</td>
                 </tr>
                 </thead>
@@ -39,6 +39,9 @@
                 @endforeach
                 </tbody>
             </table>
+            <div>
+                {{ $Organizers->links() }}
+            </div>
         </div>
     </div>
 @stop

@@ -30,6 +30,12 @@ Route::middleware(['auth'])->prefix('yonetim')->group(function(){
     Route::get('/','Admin\HomeController@index')->name('admin.home');
     Route::resource('/user','Admin\UserController');
     Route::resource('/organizer','Admin\OrganizerController');
+    Route::resource('/place','Admin\PlaceController');
+});
+
+
+Route::prefix('query')->group(function(){
+    Route::get('country/{id}','QueryController@country');
 });
 
 Route::get('dummy','HomeController@dummy');

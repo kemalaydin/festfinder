@@ -21,9 +21,9 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($Users as $i => $User)
+                @foreach($Users as $User)
                     <tr>
-                        <td>{{$i+1}}</td>
+                        <td>{{$User->id}}</td>
                         <td>{{$User->username}}</td>
                         <td>{{$User->email}}</td>
                         <td>{{$User->type}}</td>
@@ -41,6 +41,9 @@
                 @endforeach
                 </tbody>
             </table>
+            <div class="text-center">
+                {{ $Users->links() }}
+            </div>
         </div>
     </div>
 @stop

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Model\Organizer;
 use App\Model\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class OrganizerController extends Controller
@@ -17,7 +18,7 @@ class OrganizerController extends Controller
      */
     public function index()
     {
-        $Organizers = Organizer::get();
+        $Organizers = Organizer::paginate(20);
         return view('admin.organizer.index',compact('Organizers'));
     }
 
@@ -69,7 +70,8 @@ class OrganizerController extends Controller
     public function edit($id)
     {
         $Organizer = Organizer::findOrFail($id);
-        return view('admin.organizer.edit',$Organizer);
+        $Users = User::Organizers()->get();
+        return view('admin.organizer.edit',compact('Organizer','Users'));
     }
 
     /**
@@ -81,7 +83,12 @@ class OrganizerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $Organizer = Organizer::findOrFail($id)->update($request->except('_token','_method'));
+        if($Organizer){
+            return redirect()->route('organizer.index');
+        }else{
+            return redirect()->back();
+        }
     }
 
     /**
