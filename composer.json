@@ -15,6 +15,8 @@
         "laravel/telescope": "^2.1",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^1.1",
+        "league/glide-laravel": "^1.0",
+        "qcod/laravel-imageup": "^1.0",
         "themsaid/laravel-mail-preview": "^2.1"
     },
     "require-dev": {

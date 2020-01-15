@@ -1,14 +1,43 @@
 @extends('app')
 
 @section('title')
-    Welcome
+    Hoş Geldiniz
+@stop
+
+@section('script')
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBo_a4kC36Uu2a7gOF9n00djf0zahAA53A&callback=initMap"  type="text/javascript"></script>
+    <script>
+        var map;
+        var markers = [];
+        function initMap() {
+            var haightAshbury = {lat: 38.43070624776098, lng: 27.134732054021182};
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 11,
+                styles: [{"featureType":"all","elementType":"geometry.fill","stylers":[{"weight":"2.00"}]},{"featureType":"all","elementType":"geometry.stroke","stylers":[{"color":"#9c9c9c"}]},{"featureType":"all","elementType":"labels.text","stylers":[{"visibility":"on"}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#f2f2f2"}]},{"featureType":"landscape","elementType":"geometry.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"landscape.man_made","elementType":"geometry.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"poi","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"all","stylers":[{"saturation":-100},{"lightness":45}]},{"featureType":"road","elementType":"geometry.fill","stylers":[{"color":"#eeeeee"}]},{"featureType":"road","elementType":"labels.text.fill","stylers":[{"color":"#7b7b7b"}]},{"featureType":"road","elementType":"labels.text.stroke","stylers":[{"color":"#ffffff"}]},{"featureType":"road.highway","elementType":"all","stylers":[{"visibility":"simplified"}]},{"featureType":"road.arterial","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#46bcec"},{"visibility":"on"}]},{"featureType":"water","elementType":"geometry.fill","stylers":[{"color":"#c8d7d4"}]},{"featureType":"water","elementType":"labels.text.fill","stylers":[{"color":"#070707"}]},{"featureType":"water","elementType":"labels.text.stroke","stylers":[{"color":"#ffffff"}]}],
+                center: haightAshbury,
+                zoomControl: true,
+                mapTypeControl: false,
+                scaleControl: false,
+                streetViewControl: false,
+                rotateControl: false,
+                fullscreenControl: false,
+                disableDefaultUi: false
+            });
+
+            /*var marker = new google.maps.Marker({
+                position: haightAshbury,
+                map: map
+            });*/
+
+        }
+    </script>
 @stop
 
 @section('content')
     <div class="container w-full z-0 relative" style="height: 500px">
 
         <div class="invisible md:visible sm:visible lg:visible xl:visible absolute w-full" style="z-index: -1;">
-            <google-map class="w-full" style="height:500px;"></google-map>
+            <div class="full-w" id="map" style="height: 500px;"></div>
         </div>
 
         <div class="sm:w-1/4 md:w-1/4 lg:w-1/4 w-full bg-white h-full p-2 z-10 md:ml-6 shadow-2xl">

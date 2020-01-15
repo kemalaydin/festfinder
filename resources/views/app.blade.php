@@ -63,8 +63,8 @@
 
                 <div class="invisible md:visible lg:visible xl:visible w-2/4 mr-2 mt-1 mb-2 text-center">
                     <ul class="mb-2">
-                        <li class="inline-flex border-r border-primary pr-2 mr-2 hover:text-primary text-sm"><a href="#">Ana Sayfa</a></li>
-                        <li class="inline-flex border-r border-primary pr-2 mr-2 hover:text-primary text-sm"><a href="#">Organizatör Girişi</a></li>
+                        <li class="inline-flex border-r border-primary pr-2 mr-2 hover:text-primary text-sm"><a href="{{url('/')}}">Ana Sayfa</a></li>
+                        <li class="inline-flex border-r border-primary pr-2 mr-2 hover:text-primary text-sm"><a href="#">Organizatör Kayıt</a></li>
                         <li class="inline-flex hover:text-primary text-sm"><a href="#">Gizlilik Sözleşmesi</a></li>
                     </ul>
                     <span class="pt-6 text-sm">&copy Tüm Hakkı Saklıdır. {{ Carbon::now()->format('Y') }} festreet</span>

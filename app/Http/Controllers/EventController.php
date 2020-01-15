@@ -89,7 +89,7 @@ class EventController extends Controller
 
     public function category($slug){
         $Category = Category::where('slug',$slug)->first();
-        return view('frontend.event.filter',compact('Category'));
+        return view('frontend.event.category',compact('Category'));
     }
 
     public function organizer($slug){

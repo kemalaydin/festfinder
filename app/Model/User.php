@@ -6,12 +6,13 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Cviebrock\EloquentSluggable\Sluggable;
+use QCod\ImageUp\HasImageUploads;
+
 
 
 class User extends Authenticatable
 {
-    use Notifiable;
-    use Sluggable;
+    use Notifiable, Sluggable, HasImageUploads;
 
     /**
      * The attributes that are mass assignable.
@@ -57,5 +58,9 @@ class User extends Authenticatable
     public function myOrganizers(){
         return $this->hasMany('App\Model\Organizer','user_id','id');
     }
+
+    protected static $imageFields = [
+        'avatar'
+    ];
 }
 
