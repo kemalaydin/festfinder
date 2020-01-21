@@ -31,11 +31,23 @@ Route::middleware(['auth'])->prefix('yonetim')->group(function(){
     Route::resource('/user','Admin\UserController');
     Route::resource('/organizer','Admin\OrganizerController');
     Route::resource('/place','Admin\PlaceController');
+    Route::resource('/category','Admin\CategoryController');
+    Route::resource('/country','Admin\CountryController');
+    Route::resource('/city','Admin\CityController');
+    Route::resource('/event','Admin\EventController');
+    Route::get('/event/{id}/price','Admin\EventController@prices')->name('event.ticket.price');
+    Route::get('/event/{id}/price/new','Admin\EventController@newPrices')->name('event.ticket.price.new');
+    Route::delete('/event/price/{id}/delete','Admin\EventController@priceDelete')->name('event.ticket.price.destroy');
+    Route::get('/event/price/{id}/edit','Admin\EventController@priceEdit')->name('event.ticket.price.edit');
+    Route::post('/event/{id}/price','Admin\EventController@priceStore')->name('event.ticket.price.store');
+    Route::put('/event/{id}/price/edit','Admin\EventController@priceUpdate')->name('event.ticket.price.update');
 });
 
 
 Route::prefix('query')->group(function(){
     Route::get('country/{id}','QueryController@country');
+    Route::get('sub_category/{id}','QueryController@subCategory');
+    Route::get('place/{id}','QueryController@place');
 });
 
 Route::get('dummy','HomeController@dummy');

@@ -70,7 +70,7 @@
                                         </a>
 
                                         <div class="m-3 text-sm text-justify">
-                                            {{ Str::limit($Event->description,250) }}
+                                            {{ Str::limit($Event->pre_description,250) }}
                                         </div>
                                         <div class="bg-gray-100 shadow-inner p-2 rounded-b flex text-center items-stretch">
                                             <div class="w-1/3 text-xs border-r">

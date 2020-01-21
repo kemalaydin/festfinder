@@ -41,9 +41,13 @@ class LoginController extends Controller
         return $field;
     }
 
-    public function attemptLogin(Request $request)
+    protected function authenticated(Request $request, $user)
     {
         Helper::alert('Hoşgeldiniz...');
+    }
+
+    public function attemptLogin(Request $request)
+    {
         return $this->guard()->attempt(
             $this->credentials($request), $request->filled('remember')
         );

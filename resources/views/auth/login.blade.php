@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="container flex pb-6 mb-6 md:my-6 md:py-6">
-        <div class="w-full md:w-1/3 lg:w-1/3 m-auto rounded shadow-lg border border-gray-200">
+        <div class="w-full md:w-1/3 lg:w-1/3 m-auto rounded shadow-lg border border-gray-200 bg-white">
             <h3 class="text-center text-lg py-3 font-bold text-black">Giriş Yap</h3>
 
             <hr class="border-t mt-1 border-gray-200" />
@@ -14,12 +14,12 @@
                 @csrf
                 <div>
                     <label for="username" class="text-sm text-gray-900">Kullanıcı Adı veya Eposta</label>
-                    <my-input name="username" type="text" />
+                    <my-input name="username" type="text"></my-input>
                 </div>
 
                 <div class="mt-4">
                     <label for="password" class="text-sm text-gray-900">Şifre</label>
-                    <my-input name="password" type="password" />
+                    <my-input name="password" type="password"></my-input>
                 </div>
 
                 <div class="mt-4">

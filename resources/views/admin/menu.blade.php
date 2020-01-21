@@ -88,13 +88,13 @@
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('event.index') }}" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Etkinlik Listesi</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('event.create') }}" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Yeni Etkinlik Ekle</p>
                     </a>
@@ -112,15 +112,16 @@
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('country.index') }}" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
-                        <p>Para Birimleri</p>
+                        <p>Ülkeler</p>
                     </a>
                 </li>
+
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('city.index') }}" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
-                        <p>Ülkeler ve İller</p>
+                        <p>İller</p>
                     </a>
                 </li>
             </ul>
@@ -136,13 +137,13 @@
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('category.index') }}" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Kategori Listesi</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('category.create') }}" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Yeni Kategori Ekle</p>
                     </a>

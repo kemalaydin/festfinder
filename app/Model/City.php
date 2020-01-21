@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class City extends Model
 {
 
-    public function getCountry(){
-        return $this->hasOne('Model\Country','country_id','id');
+    protected $fillable = ['name','country_id'];
+
+    public function Country(){
+        return $this->hasOne('App\Model\Country','id','country_id');
     }
 }

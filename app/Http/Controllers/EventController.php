@@ -6,6 +6,7 @@ use App\Model\Category;
 use App\Model\Event;
 use App\Model\Organizer;
 use App\Model\Place;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
@@ -49,8 +50,14 @@ class EventController extends Controller
      */
     public function show($slug)
     {
+
+        // https://public-api.blablacar.com/api/v2/trips?key=f83e54168e1747038a58f0a054865ffc&fn=%C4%B0zmir&tn=%C4%B0stanbul&locale=tr_TR
         $Event = Event::where('slug',$slug)->with('prices','place','organizer','category','subcategory')->first();
-        return view('frontend.event.show',compact('Event'));
+        $EventDate = Carbon::create(json_decode($Event->date)[1]);
+        $now = Carbon::now();
+        $diff_date = $EventDate->diffInDays($now,false);
+
+        return view('frontend.event.show',compact('Event','diff_date'));
     }
 
     /**

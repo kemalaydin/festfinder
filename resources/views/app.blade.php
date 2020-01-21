@@ -9,9 +9,9 @@
         <link rel="stylesheet" href="{{ mix('css/app.css')}}">
         @yield('style')
     </head>
-    <body>
+    <body class="bg-gray-100">
         <div id="app">
-            <div class="container flex shadow-lg z-20 relative">
+            <div class="container flex z-20 relative">
                 <div class="w-screen bg-topaz-dark px-2 p-3">
                     <div class="text-center w-1/4 float-left">
                         <a href="{{ url('/') }}">
@@ -22,8 +22,8 @@
                     <div class="hidden md:block lg:block lg:w-3/4 xl:w-3/4 md:w-3/4 float-left ">
                         <div class="flex">
                             <div class="bg-white p-1 rounded m-2 w-1/2 shadow-xl">
-                                <font-awesome name="search" class="text-primary mb-1 ml-1 mr-2"></font-awesome>
-                                <input placeholder="Zeytinli Rock Fest" class="w-5/6 text-sm text-primary focus:outline-none placeholder-primary-300" />
+                                <font-awesome name="search" class="text-primary mb-1 mt-1 ml-1 mr-2"></font-awesome>
+                                <input placeholder="Zeytinli Rock Fest" class="w-5/6 text-sm text-primary mb-1 focus:outline-none placeholder-primary-300" />
                             </div>
 
                             <ul class="float-right text-right mr-6 w-1/2 ml-6 mt-1">
@@ -31,24 +31,27 @@
                                 <li class="p-2 mr-6 inline-flex text-white font-light text-sm font-bold border-r border-primary-400">&nbsp</li>
                                 @guest
                                     <li class="p-2 mr-1 inline-flex text-white text-sm font-bold rounded"><a href="{{ route('login') }}"><font-awesome name="sign-in-alt" class="mr-1"></font-awesome> Giriş</a></li>
-                                    <li class="py-2 px-4 mr-1 inline-flex text-white text-sm font-thin rounded bg-primary-800 hover:bg-primary-700 shadow"><a href="{{ route('register') }}"><font-awesome name="user-plus" class="mr-1"></font-awesome> Yeni Hesap</a></li>
+                                    <li class="py-2 px-4 mr-1 inline-flex text-white text-sm font-thin rounded bg-primary-800 hover:bg-primary-700 shadow transition-bg"><a href="{{ route('register') }}"><font-awesome name="user-plus" class="mr-1"></font-awesome> Yeni Hesap</a></li>
                                 @else
                                     <user-menu
-                                        class="cursor-pointer"
-                                        user="{{Auth::User()->username}}"
+                                        user="{{ Auth::User()->username }}"
                                         route="{{ url('/') }}"
                                         csrf="{{ csrf_token() }}"
-                                    ></user-menu>
+                                        name="{{ Auth::User()->first_name }}"
+                                        surname="{{ Auth::User()->last_name }}"
+                                        type="{{ Auth::User()->type }}"
+                                        first_letter="{{ Str::limit(Auth::User()->username,1,'') }}"
+                                    />
                                 @endguest
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="container invisible md:visible xl:visible lg:visible relative flex bg-primary-100 z-10 shadow">
+            <div class="container invisible md:visible xl:visible lg:visible relative flex bg-primary-100 z-10 shadow-xl">
                 <ul class="flex m-auto">
                     @foreach($MainCategories as $Category)
-                        <li><a href="{{ route('event.category',$Category->slug) }}" class="inline-flex py-2 px-4 text-primary-700 border-b border-primary-100 hover:border-primary-700 text-sm">{{ $Category->category_name }}</a></li>
+                        <li><a href="{{ route('event.category',$Category->slug) }}" class="inline-flex py-2 px-4 text-primary-700 border-b-2 border-primary-100 hover:border-primary-700 opacity-75 hover:opacity-100 text-sm transition-border">{{ $Category->category_name }}</a></li>
                     @endforeach
                 </ul>
             </div>
@@ -56,7 +59,8 @@
                 @yield('content')
 
             <div class="clearfix"></div>
-            <div class="container w-full flex border-t-2 border-primary pt-6 z-10 px-6 shadow-inner">
+            <div class="w-full h-1 bg-topaz shadow z-20 relative"></div>
+            <div class="container w-full flex pt-6 z-10 px-6 shadow-inner">
                 <div class="w-1/4 mr-2 mb-4">
                     @include('core.logo',['color' => 'primary'])
                 </div>
@@ -71,7 +75,7 @@
                 </div>
 
                 <div class="w-1/4 mr-2 mb-4 text-right">
-                    <span class="text-sm font-thin mt-2 block">Made with <font-awesome name="heart" class="text-primary" spin style="margin-top: -4px"></font-awesome> in Izmir</span>
+                    <span class="text-sm font-thin mt-2 block">Made with <font-awesome name="heart" class="text-red-700" style="margin-top: -4px"></font-awesome> in Izmir</span>
                 </div>
                 @if(session()->has('alert'))
                     <alert

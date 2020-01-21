@@ -14,6 +14,10 @@ class Category extends Model
         return $this->hasMany('App\Model\Event','category','id');
     }
 
+    public function SubEvents(){
+        return $this->hasMany('App\Model\Event','sub_category','id');
+    }
+
     public function ChildCategories(){
         return $this->hasMany('App\Model\Category','sub_category','id');
     }
@@ -29,5 +33,10 @@ class Category extends Model
                 'source' => 'category_name'
             ]
         ];
+    }
+
+    public function scopeMainCategory($query)
+    {
+        return $query->where('sub_category', '=' ,'');
     }
 }

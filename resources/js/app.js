@@ -10,18 +10,9 @@ import NumberInput from 'vue-phone-number-input';
 import Alert from './components/Alert.vue';
 import MyButton from './components/MyButton.vue';
 import MyInput from './components/MyInput.vue';
-import * as VueGoogleMaps from 'vue2-google-maps';
-import { GmapMarker} from 'vue2-google-maps/src/components/marker';
+import Avatar from './components/Avatar';
 
 import Message from './components/Message.vue';
-
-Vue.use(VueGoogleMaps, {
-    load: {
-        key: 'AIzaSyBo_a4kC36Uu2a7gOF9n00djf0zahAA53A',
-        libraries: 'places',
-    }
-});
-
 
 // Styles
 import 'vue-phone-number-input/dist/vue-phone-number-input.css';
@@ -42,7 +33,8 @@ const app = new Vue({
         Alert,
         MyButton,
         MyInput,
-        Message
+        Message,
+        Avatar
     },
     methods: {
 

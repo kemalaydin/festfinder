@@ -7,19 +7,19 @@
 @section('content')
     <div class="container p-6">
         <div class="flex p-6">
-            <div class="w-1/4 ml-6 mr-4">
+            <div class="w-1/4 ml-6 mr-4 bg-white shadow-lg rounded p-3">
                 <h3 class="text-3xl font-thin capitalize">@if(Auth::User()->first_name != "") {{ Auth::User()->first_name.' '.Auth::User()->last_name }} @else {{ Auth::User()->username }} @endif</h3>
                 <hr>
                 <ul class="mt-2">
-                    <li class="mb-1 uppercase text-xl hover:text-primary"><a href="{{ route('my.account') }}">Profilim</a></li>
-                    <li class="mb-1 uppercase text-xl hover:text-primary"><a href="{{ route('my.account.favs') }}">Favorilerim</a></li>
-                    <li class="mb-1 uppercase text-xl hover:text-primary"><a href="{{ route('my.account.events') }}">Etkinliklerim</a></li>
-                    <li class="mb-1 uppercase text-xl hover:text-primary"><a href="{{ route('my.account.tickets') }}">Biletlerim <small><small><small>(Yakında)</small></small></small></a></li>
+                    <li class="mb-1 uppercase text-xl hover:text-primary-500 transition-color"><a href="{{ route('my.account') }}">Profilim</a></li>
+                    <li class="mb-1 uppercase text-xl hover:text-primary-500 transition-color"><a href="{{ route('my.account.favs') }}">Favorilerim</a></li>
+                    <li class="mb-1 uppercase text-xl hover:text-primary-500 transition-color"><a href="{{ route('my.account.events') }}">Etkinliklerim</a></li>
+                    <li class="mb-1 uppercase text-xl hover:text-primary-500 transition-color"><a href="{{ route('my.account.tickets') }}">Biletlerim <small><small><small>(Yakında)</small></small></small></a></li>
                 </ul>
             </div>
 
-            <div class="w-3/4 mr-6 ml-4">
-                <h3 class="text-3xl font-normal text-black bg-gray-100 px-2 rounded-t uppercase">profilim</h3>
+            <div class="w-3/4 mr-6 ml-4 p-3 bg-white shadow-lg rounded">
+                <h3 class="text-3xl font-thin text-black px-2 rounded-t uppercase">profilim</h3>
                 <hr>
                 <div class="container">
                     <form action="{{ route('my.account.edit') }}" class="flex" method="post">

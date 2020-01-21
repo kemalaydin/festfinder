@@ -16,8 +16,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="{{ asset('admin/plugins/fontawesome-free/css/all.min.css')}}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('admin/dist/css/adminlte.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('admin/dist/css/_all-skins.min.css')}}">
+
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+    <style>
+        .select2-container .select2-selection--single{
+            height: auto !important;
+        }
+        .select2-container--default .select2-selection--single .select2-selection__arrow{
+            height: 40px !important;
+        }
+    </style>
 
     @yield('style')
 </head>

@@ -1,5 +1,5 @@
 <template>
-    <input v-bind:type="type" v-bind:value="value" v-bind:id="name" v-bind:name="name" v-bind:class="'p-2 text-sm border border-gray-200 focus:border-gray-400 placeholder-gray-400 rounded block w-full focus:outline-none'" v-bind:placeholder="placeholder" />
+    <input v-bind:type="type" v-bind:value="value" v-bind:id="name" v-bind:name="name" class="p-2 text-sm transition-border border border-gray-200 focus:border-gray-400 placeholder-gray-400 rounded block w-full focus:outline-none" v-bind:placeholder="placeholder" />
 </template>
 
 <script>

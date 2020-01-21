@@ -1,5 +1,5 @@
 <template>
-    <button class="py-2 px-4 bg-primary text-white rounded hover:bg-primary-600 focus:outline-none shadow-lg"">
+    <button class="py-2 px-4 bg-primary-500 text-white rounded hover:bg-primary-600 focus:outline-none shadow-lg transition-bg">
         {{ value }}
     </button>
 </template>
