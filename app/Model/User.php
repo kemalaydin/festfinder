@@ -14,29 +14,14 @@ class User extends Authenticatable
 {
     use Notifiable, Sluggable, HasImageUploads;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'first_name','last_name', 'username', 'email', 'password','phone_number','birthday','type'
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [
         'password', 'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
@@ -57,6 +42,10 @@ class User extends Authenticatable
 
     public function myOrganizers(){
         return $this->hasMany('App\Model\Organizer','user_id','id');
+    }
+
+    public function getFav(){
+        return $this->hasMany('App\Model\Social','user_id','id');
     }
 
     protected static $imageFields = [

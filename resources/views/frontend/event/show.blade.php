@@ -1,13 +1,10 @@
 @extends('app')
-
 @section('title',$Event->title)
-
-
 @section('script')
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBo_a4kC36Uu2a7gOF9n00djf0zahAA53A&callback=initMap"  type="text/javascript"></script>
+
     <script>
         var map;
-        var markers = [];
         function initMap() {
             var haightAshbury = {lat: {{json_decode($Event->place->coordinates)[0]}}, lng: {{json_decode($Event->place->coordinates)[1]}}};
             map = new google.maps.Map(document.getElementById('map'), {
@@ -27,25 +24,21 @@
                 position: haightAshbury,
                 map: map,
                 icon: "{{ asset('images/map_marker.svg') }}",
-                title: "{{ $Event->place->name }}",
+                title: "{{ $Event->title }}",
                 animation: google.maps.Animation.DROP,
             });
 
+            var infowindow = new google.maps.InfoWindow({
+                content: marker.title
+            });
+
+            infowindow.open(map, marker);
         }
     </script>
 @stop
 
 @section('content')
     <div class="container relative">
-        @if( $diff_date < 0 )
-            <span class="absolute right-0 top-0 float-right inline text-xs bg-blue-200 py-2 px-4 rounded-l text-blue-700 mt-6">
-                Etkinliğin başlamasına <span class="mx-2 font-bold">{{ str_replace('-','',Carbon::create(json_decode($Event->date)[0])->diffInDays(Carbon::now(),false)) }}</span> gün kaldı.
-            </span>
-        @else
-            <span class="absolute right-0 top-0 float-right inline text-xs bg-red-200 py-2 px-4 rounded-l text-red-700 mt-6">
-                Bu Etkinlik <span class="font-bold mx-2">{{ json_decode($Event->date)[1] }}</span> Tarihinde Sonlanmıştır.
-            </span>
-        @endif
         <div class="flex flex-col m-6 p-6">
             <div class="text-4xl font-thin w-full relative">
                 <span>{{ $Event->title }}</span>
@@ -54,6 +47,41 @@
             <div class="flex">
                 <div class="w-full md:w-2/3 lg:w-2/3 xl:w-2/3 ">
                     <div class="bg-white mr-6 shadow-xl mt-4 rounded">
+                        <div class="bg-gray-300 p-2 rounded-t text-xs flex">
+                           <div class="w-1/3 mt-1">
+                               @if( $diff_date < 0 )
+                                   Etkinliğin başlamasına <span class="mx-2 font-bold">{{ str_replace('-','',Carbon::create(json_decode($Event->date)[0])->diffInDays(Carbon::now(),false)) }}</span> gün kaldı.
+                               @else
+                                   Bu Etkinlik Sonlanmıştır.
+                               @endif
+                           </div>
+                            <div class="w-2/3 text-right mt-1">
+                               @if($GoToEvent > 0)
+                                    <a href="{{ route('my.account.event.go.remove',$Event->id) }}" class="shadow text-white bg-blue-500 hover:text-white hover:bg-red-600 transition-bg px-2 py-1 rounded mr-2">
+                                        <font-awesome name="running" class="mr-1 mb-1"></font-awesome>
+                                        Etkinliğe Katılmayacağım
+                                    </a>
+                               @else
+                                    <a href="{{ route('my.account.event.go',$Event->id) }}" class="shadow text-blue-500 bg-white hover:text-white hover:bg-blue-600 transition-bg px-2 py-1 rounded mr-2">
+                                        <font-awesome name="running" class="mr-1 mb-1"></font-awesome>
+                                        Bu Etkinliğe Katılacağım
+                                    </a>
+                               @endif
+
+                                @if($FavEvent > 0)
+                                    <a href="{{ route('my.account.favs.remove',$Event->id) }}" class="shadow text-white bg-orange-500 hover:text-white hover:bg-red-600 transition-bg px-2 py-1 rounded">
+                                        <font-awesome name="star" class="mr-1 mb-1"></font-awesome>
+                                        Favorilerimden Çıkar
+
+                                    </a>
+                                @else
+                                    <a href="{{ route('my.account.favs.add',$Event->id) }}" class="shadow text-orange-500 bg-white hover:text-white hover:bg-orange-600 transition-bg px-2 py-1 rounded">
+                                        <font-awesome name="star" class="mr-1 mb-1"></font-awesome>
+                                        Favorilerime Ekle
+                                    </a>
+                                @endif
+                            </div>
+                        </div>
                         <div class="mb-3 ml-3 pt-3">
                             <img src="data:image/jpg;base64,{{$Event->poster}}" alt="{{ $Event->title }}" class="w-1/3 mr-3 float-left rounded-lg shadow-lg @if( $diff_date > 0 ) filter-grayscale @endif"/>
                             <p class="inline text-justify">{!! $Event->description !!}</p>
@@ -75,6 +103,7 @@
                                 <p class="font-thin">{{ $Event->place->address }}</p>
                             </div>
                         </div>
+
                         <div>
                             <div id="map" class="w-full border-t border-gray-200" style="height: 200px"></div>
                         </div>
@@ -114,25 +143,32 @@
                     <div class="bg-white p-4 ml-6 shadow-xl mt-6 rounded">
                         <h3 class="text-2xl border-b border-gray-200 mb-2 pb-2">@if($diff_date > 0) Giden @else Gidecek @endif Kullanıcılar</h3>
                         <ul class="text-center">
-                            <li class="inline-flex mr-3 mb-2">
-                                <img class="rounded-full w-12 shadow-lg border-2 border-green-500 " src="https://randomuser.me/api/portraits/men/14.jpg"/>
-                            </li>
+                            {{-- @forelse($Event->Socials as $Social)
+                                <li class="inline-flex mr-3 mb-2">
+                                    <img class="rounded-full w-12 shadow-lg border-2 border-green-500 " src="data:image/jpg;base64,{{ $Social->user->avatar }}"/>
+                                </li>
+                            @empty
+                                <li>Bu etkiniliğe katılacağını bildiren ilk kişi sen ol !</li>
+                            @endforelse --}}
+                                <li class="inline-flex mr-3 mb-2">
+                                    <img class="rounded-full w-12 shadow-lg border-2 border-green-500 " src="https://i.pravatar.cc/300"/>
+                                </li>
 
-                            <li class="inline-flex mr-3 mb-2">
-                                <img class="rounded-full w-12 shadow-lg border-2 border-primary-500 " src="https://randomuser.me/api/portraits/men/53.jpg"/>
-                            </li>
+                                <li class="inline-flex mr-3 mb-2">
+                                    <img class="rounded-full w-12 shadow-lg border-2 border-purple-500 " src="https://i.pravatar.cc/200"/>
+                                </li>
 
-                            <li class="inline-flex mr-3 mb-2">
-                                <img class="rounded-full w-12 shadow-lg border-2 border-gray-500 " src="https://randomuser.me/api/portraits/men/51.jpg"/>
-                            </li>
+                                <li class="inline-flex mr-3 mb-2">
+                                    <img class="rounded-full w-12 shadow-lg border-2 border-red-500 " src="https://i.pravatar.cc/310"/>
+                                </li>
 
-                            <li class="inline-flex mr-3 mb-2">
-                                <img class="rounded-full w-12 shadow-lg border-2 border-blue-500 " src="https://randomuser.me/api/portraits/men/20.jpg"/>
-                            </li>
+                                <li class="inline-flex mr-3 mb-2">
+                                    <img class="rounded-full w-12 shadow-lg border-2 border-primary-500 " src="https://i.pravatar.cc/320"/>
+                                </li>
 
-                            <li class="inline-flex mr-3 mb-2">
-                                <img class="rounded-full w-12 shadow-lg border-2 border-gray-500 " src="https://randomuser.me/api/portraits/men/10.jpg"/>
-                            </li>
+                                <li class="inline-flex mr-3 mb-2">
+                                    <img class="rounded-full w-12 shadow-lg border-2 border-teal-500 " src="https://i.pravatar.cc/330"/>
+                                </li>
 
                         </ul>
                     </div>

@@ -31,6 +31,10 @@ class Event extends Model
         return $this->hasMany('App\Model\EventPrice','event_id','id');
     }
 
+    public function Socials(){
+        return $this->hasMany('App\Model\Social','event_id','id');
+    }
+
     public function sluggable()
     {
         return [

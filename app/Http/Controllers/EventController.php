@@ -6,41 +6,13 @@ use App\Model\Category;
 use App\Model\Event;
 use App\Model\Organizer;
 use App\Model\Place;
+use App\Model\Social;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
     /**
      * Display the specified resource.
@@ -50,48 +22,18 @@ class EventController extends Controller
      */
     public function show($slug)
     {
-
-        // https://public-api.blablacar.com/api/v2/trips?key=f83e54168e1747038a58f0a054865ffc&fn=%C4%B0zmir&tn=%C4%B0stanbul&locale=tr_TR
+        $FavEvent = 0;
+        $GoToEvent = 0;
         $Event = Event::where('slug',$slug)->with('prices','place','organizer','category','subcategory')->first();
+        if(Auth::check()){
+            $FavEvent = Social::where('event_id',$Event->id)->where('user_id',Auth::id())->where('type','fav')->count();
+            $GoToEvent = Social::where('event_id',$Event->id)->where('user_id',Auth::id())->where('type','gidecek')->count();
+        }
         $EventDate = Carbon::create(json_decode($Event->date)[1]);
         $now = Carbon::now();
         $diff_date = $EventDate->diffInDays($now,false);
 
-        return view('frontend.event.show',compact('Event','diff_date'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Model\Event  $event
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Event $event)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Model\Event  $event
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Event $event)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Model\Event  $event
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Event $event)
-    {
-        //
+        return view('frontend.event.show',compact('Event','diff_date','FavEvent','GoToEvent'));
     }
 
     public function category($slug){

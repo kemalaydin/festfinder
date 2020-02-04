@@ -22,8 +22,12 @@
                     <div class="hidden md:block lg:block lg:w-3/4 xl:w-3/4 md:w-3/4 float-left ">
                         <div class="flex">
                             <div class="bg-white p-1 rounded m-2 w-1/2 shadow-xl">
-                                <font-awesome name="search" class="text-primary mb-1 mt-1 ml-1 mr-2"></font-awesome>
-                                <input placeholder="Zeytinli Rock Fest" class="w-5/6 text-sm text-primary mb-1 focus:outline-none placeholder-primary-300" />
+
+                                <form action="{{ route('search') }}" method="post" id="search" name="search">
+                                    @csrf
+                                    <font-awesome name="search" class="text-primary mb-1 mt-1 ml-1 mr-2"></font-awesome>
+                                    <input name="search" placeholder="Zeytinli Rock Fest" class="w-5/6 text-sm text-primary mb-1 focus:outline-none placeholder-primary-300" />
+                                </form>
                             </div>
 
                             <ul class="float-right text-right mr-6 w-1/2 ml-6 mt-1">

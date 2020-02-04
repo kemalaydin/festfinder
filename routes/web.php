@@ -16,15 +16,21 @@ Route::get('/','HomeController@index');
 Route::middleware(['auth'])->prefix('my')->group(function(){
     Route::get('account','UserController@index')->name('my.account');
     Route::post('account','UserController@edit')->name('my.account.edit');
-    Route::get('fav','UserController@edit')->name('my.account.favs');
-    Route::get('event','UserController@edit')->name('my.account.events');
+    Route::get('fav','UserController@favs')->name('my.account.favs');
+    Route::get('event','UserController@events')->name('my.account.events');
     Route::get('ticket','UserController@ticket')->name('my.account.tickets');
+    Route::get('fav/create/{id}','UserController@favAdd')->name('my.account.favs.add');
+    Route::get('fav/remove/{id}','UserController@favRemove')->name('my.account.favs.remove');
+    Route::get('event/go/{id}','UserController@eventGo')->name('my.account.event.go');
+    Route::get('event/go/remove/{id}','UserController@eventGoRemove')->name('my.account.event.go.remove');
 });
 
 Route::get('category/{slug}','EventController@category')->name('event.category');
 Route::get('organizer/{slug}','EventController@organizer')->name('event.organizer');
 Route::get('place/{slug}','EventController@place')->name('event.place');
 Route::get('event/{slug}','EventController@show')->name('event.show');
+Route::post('search/plan','HomeController@searchPlan')->name('search.plan');
+Route::post('search','HomeController@search')->name('search');
 
 Route::middleware(['auth'])->prefix('yonetim')->group(function(){
     Route::get('/','Admin\HomeController@index')->name('admin.home');
